@@ -6,7 +6,7 @@
 
 - System Administration related exercise
 - Create your first a virtual machine in VirtualBox
-- Create own operating system while implementing.
+- Create own operating system.
 - The use of VirtualBox is mandatory.
 - Turn in a signature.txt file at the root of your repository. You must paste in it the signature of your machine’s virtual disk.
 
@@ -46,7 +46,8 @@
 
 - In addition to the root user, a user with your login as username has to be present.
 - This user has to belong to the user42 and sudo groups.
-- *During the defense, you will have to create a new user and assign it to a group.*
+- During the defense, you will have to create a new user and assign it to a group.
+
 - create a simple script called monitoring.sh, developed in bash.
 - every 10 min following info must be displayed (wall)
  - architecture of OS and its kernel version.
@@ -68,7 +69,7 @@ Take a look at cron.
 
 ## Bonus
 - Set up partitions correctly so you get a structure similar
-- unctional WordPress website with the following services: lighttpd MariaDB, and PHP.
+- functional WordPress website with the following services: lighttpd MariaDB, and PHP.
 - Set up a service of your choice that you think is useful (NGINX / Apache2 excluded!). During the defense, you will have to justify your choice.
 - To complete the bonus part, you have the possibility to set up extra services. In this case, you may open more ports to suit your needs. Of course, the UFW/Firewalld rules has to be adapted accordingly.
 
@@ -78,6 +79,16 @@ saved):
  - Windows: %HOMEDRIVE%%HOMEPATH%\VirtualBox VMs\
 
 - Then, retrieve the signature from the ".vdi" file of your virtual machine in sha1 format.
+
+## Defense Questions
+
+- Questions about the operating system you chose.
+- Know the differences between aptitude and apt.
+- The difference between SELinux or AppArmor is.
+- The use of SSH will be tested during the defense by setting up a new account. You must therefore understand how it works.
+- During the defense, you will have to create a new user and assign it to a group.
+- During the defense, you will be asked to explain how this script works. You will also have to interrupt it without modifying it.
+- During the defense, you will have to justify your choice of the service choosen
 
 ## Learning & Understanding
 
