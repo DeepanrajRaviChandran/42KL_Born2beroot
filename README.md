@@ -429,3 +429,9 @@ aptitude remove <PackageName> # remove the package including its configuration f
     - List user's crontab jobs : sudo crontab -l
         - -l -> stands for list crontab jobs
 
+### Step by step
+
+#### Installing Sudo
+- Login as root 'su -' or 'su root'
+
+
