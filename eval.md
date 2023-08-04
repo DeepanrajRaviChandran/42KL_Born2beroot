@@ -107,46 +107,76 @@
     - `sudo usermod -aG sudo eval`
 
 - The subject imposes strict rules for sudo. The evaluated student must first explain the value and operation of sudo using examples of their choice.
+    - "TTY" is an acronym for "teletype", which refers to a computer's terminal interface.
+    - To use tty, -t option followed by a TTY number, for example `sudo -t 1 command`
+    - In this example, the command will be run on terminal 1
 
 - In a second step, it must show you the implementation of the rules imposed by the subject.
+    - `sudo visudo -f /etc/sudoers.d/sudo_config`
 
 - Verify that the "/var/log/sudo/" folder exists and has at least one file. Check the contents
 of the files in this folder, You should see a history of the commands used with sudo.
 Finally, try to run a command via sudo. See if the file (s) in the "/var/log/ sudo/" folder
 have been updated.
-If something does not work as expected or is not clearly explained, the evaluation stops here.
+    - `sudo cat /var/log/sudo/sudo.log`
+    - `sudo ls` or `sudo ufw status`
+    - `sudo cat /var/log/sudo/sudo.log`
 
 #### UFW
 - Check that the "UFW" program is properly installed on the virtual machine.
+    - `dpkg -l | grep ufw`
+    - `sudo ufw status numbered`
 
 - Check that it is working properly.
+    - go into windows cmd `ssh dravi-ch@localhost -p 4242`
 
 - The evaluated student being evaluated should explain to you basically what UFW is and the value of using it.
+    - UFW (Uncomplicated Firewall) is a interface for managing iptables
+    - iptables is basically the firewall management tool in Linux
+    - So what UFW does is it modify the firewall on which ports to allow connections to and which ports to close. 
+    - This is useful in with SSH in our application where we must allow port 4242
 
 - List the active rules in UFW. A rule must exist for port 4242.
+    - `sudo ufw status numbered`
 
 - Add a new rule to open port 8080. Check that this one has been added by listing the active rules.
+     - `sudo ufw allow 8080`
 
 - Finally, delete this new rule with the help of the student evaluated.
+    - `sudo ufw delete <rule_number>`
 
 #### SSH
 - Check that the SSH service is properly installed on the virtual machine.
+    - `dpkg -l | grep ssh`
+    - `sudo service ssh status`
 
 - Check that it is working properly.
+     - go into windows cmd `ssh dravi-ch@localhost -p 4242`
 
 - The evaluated student must be able to explain to you basically what SSH is and the value of using it.
+    - Secure Shell (SSH) is a network protocol that allows you to remotely connect to a computer through an is encrypted network.
+    - SSH is widely used to administer remote servers and you can transfer files between computers when using SSH.
 
 - Verify that the SSH service only uses port 4242.
+    - show port fowarding rule
+    - `sudo nano /etc/ssh/sshd_config`
 
 - The student evaluated should help you use SSH in order to log in with the newly created user. To do this, you can use a key or a simple password. It will depend on the student being evaluated.
 Of course, you have to make sure that you cannot use SSH with the "root" user as stated in the subject.
+    - `ssh eval@localhost -p 4242`
 
 #### Script Monitoring 
 - How the script works by showing you the code.
+    - `cd /usr/local/bin`
+    - The first line of the script indicates that the script is to be executed by the Bash shell.
+    - Next, the script defines a series of variables that will be used to store system information using grep and unix commands
+    - Then, the script uses the wall command to display system information on all terminals connected to the system.
 
 - What is "cron".
+    - Cron is a daemon (a background process) that runs commands or scripts at predefined intervals of time. It is primarily used on Unix and Linux systems to schedule tasks to be run automatically.
 
 - How the evaluated student set up their script so that it runs every 10 minutes when the server starts up.
+    - `sudo crontab -u root -e`
 
 - Once the correct functioning of the script has been verified, the student evaluated should ensure that this script runs every 1min.
 
