@@ -167,7 +167,7 @@ Of course, you have to make sure that you cannot use SSH with the "root" user as
 
 #### Script Monitoring 
 - How the script works by showing you the code.
-    - `cd /usr/local/bin`
+    - `cd /usr/local/bin` and `cat monitoring.sh`
     - The first line of the script indicates that the script is to be executed by the Bash shell.
     - Next, the script defines a series of variables that will be used to store system information using grep and unix commands
     - Then, the script uses the wall command to display system information on all terminals connected to the system.
@@ -179,19 +179,42 @@ Of course, you have to make sure that you cannot use SSH with the "root" user as
     - `sudo crontab -u root -e`
 
 - Once the correct functioning of the script has been verified, the student evaluated should ensure that this script runs every 1min.
+    - `script to */1 * * * *`
 
 - You can run whatever you want to make sure the script runs with dynamic values correctly, 
 
 - Finally the student evaluated should make the script stop running when the server starts up, but without modifying the script itself. 
+    - delete the rule in `sudo crontab -u root -e`
 
 - To check this point, you will have to restart the server one last time. At startup, it will be necessary to check that the script
 still exists in the same place, that its rights have remained unchanged, and that it has not been modified.
+     - `sudo reboot`
 
 #### Bonus
 - Setting up partitions is worth 2 points.
+     - `lsblk`
 
 - Setting up WordPress, only with the services required by the subject, is worth 2 points.
+    - `sudo php -v`
+    - `sudo lighttpd -v`
+    - `sudo systemctl status lighttpd`
+    - `sudo systemctl status mariadb`
+    - `http://127.0.0.1:8080`
+    - `http://127.0.0.1:8080/wp-admin/`
+    - `http://127.0.0.1:8080/wp-login.php`
 
 - The free choice service is worth 1 point. Verify and test the proper functioning and implementation of each extra service.
 For the free choice service, the evaluated student has to give you a
 simple explanation about how it works and why they think it is useful.
+- network info : `vnstat`
+    1. "rx": 12.83 KiB: The amount of data received in this month.
+    2. "tx": 12.47 KiB: The amount of data transmitted in this month.
+    3. "total": 25.30 KiB: The total combined data (received + transmitted) for this month.
+    4. "avg. rate": 690 bit/s: The average network data rate for this month, calculated as the average of the received and transmitted data.
+- live network : `vnstat -i enp0s3 -l`
+- network traffic of the last 24 hours : `vnstat -h`
+- Daily Network Traffic : `vnstat -d`
+- Weekly Traffic : `vnstat -w`
+- Monthly Network Traffic : `vnstat -m`
+- Top 10 Days : `vnstat -t`
+- 
