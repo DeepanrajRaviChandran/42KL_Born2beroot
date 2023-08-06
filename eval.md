@@ -217,4 +217,8 @@ simple explanation about how it works and why they think it is useful.
 - Weekly Traffic : `vnstat -w`
 - Monthly Network Traffic : `vnstat -m`
 - Top 10 Days : `vnstat -t`
-- 
+- Network Monitoring: vnStat provides real-time monitoring of network traffic, allowing you to keep an eye on the data usage of your network interface. This is helpful for individuals and network administrators who want to stay informed about the amount of data being transferred in and out of their systems.
+
+- Bandwidth Management: For users with limited internet bandwidth or data caps, vnStat helps in monitoring and managing data usage efficiently. By tracking network usage over time, you can identify applications or services that consume excessive data and take appropriate actions to optimize your internet usage.
+
+- Historical Data: vnStat keeps historical data on network usage, enabling you to analyze trends and patterns over time. This historical perspective can be valuable for understanding your internet habits, planning for future data needs, and troubleshooting potential network issues.
