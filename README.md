@@ -630,6 +630,28 @@ wall "	#Architecture: $arc
 - open crontab : `sudo crontab -u root -e`
 - edit with `*/10 * * * * /usr/local/bin/monitoring.sh` at the end.
 
+### Explanation of Monitoring.sh
+This Bash script is designed to gather various system information from a Linux system and display it in a formatted message using the `wall` command, which broadcasts a message to all logged-in users. Let's break down the script step by step:
+
+1. `arc=$(uname -a)`: This line captures the system's architecture information using the `uname -a` command and stores it in the variable `arc`.
+2. `pcpu=$(grep "physical id" /proc/cpuinfo | sort | uniq | wc -l)`: This line counts the number of unique physical CPUs by using the `grep` command to filter out lines containing "physical id" from the `/proc/cpuinfo` file. The results are then sorted and counted using `sort`, `uniq`, and `wc -l`, and the count is stored in the variable `pcpu`.
+3. `vcpu=$(grep "^processor" /proc/cpuinfo | wc -l)`: This line counts the total number of virtual CPUs by counting the lines that start with "processor" in the `/proc/cpuinfo` file. The count is stored in the variable `vcpu`.
+4. `fram=$(free -m | awk '$1 == "Mem:" {print $2}')`: This line uses the `free` command to retrieve the total available memory in megabytes (MB) and extracts the value from the "Mem:" line using `awk`. The value is stored in the variable `fram`.
+5. `uram=$(free -m | awk '$1 == "Mem:" {print $3}')`: Similar to the previous line, this line extracts the used memory in MB from the "Mem:" line using `awk` and stores it in the variable `uram`.
+6. `pram=$(free | awk '$1 == "Mem:" {printf("%.2f"), $3/$2*100}')`: This line calculates the percentage of used memory by dividing the used memory value by the total memory value and then multiplying by 100. The result is formatted to two decimal places using `printf`, and the percentage is stored in the variable `pram`.
+7. `fdisk=$(df -BG | grep '^/dev/' | grep -v '/boot$' | awk '{ft += $2} END {print ft}')`: This line uses the `df` command to retrieve the total disk space in gigabytes (GB) for all mounted filesystems. It filters out lines related to the boot partition using `grep` and sums up the total disk space using `awk`. The result is stored in the variable `fdisk`.
+8. `udisk=$(df -BM | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} END {print ut}')`: Similar to the previous line, this line calculates the total used disk space in megabytes (MB) by summing up the used space for all mounted filesystems.
+9. `pdisk=$(df -BM | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} {ft+= $2} END {printf("%d"), ut/ft*100}')`: This line calculates the percentage of used disk space by dividing the total used space by the total available space and then multiplying by 100. The result is formatted as an integer and stored in the variable `pdisk`.
+10. `cpul=$(top -bn1 | grep '^%Cpu' | cut -c 9- | xargs | awk '{printf("%.1f%%"), $1 + $3}')`: This line uses the `top` command to retrieve CPU usage information and calculates the sum of user and system CPU usage percentages. The result is formatted to one decimal place and stored in the variable `cpul`.
+11. `lb=$(who -b | awk '$1 == "system" {print $3 " " $4}')`: This line uses the `who` command to retrieve the system boot time and date, which is then formatted as "day month" and stored in the variable `lb`.
+12. `lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -eq 0 ]; then echo no; else echo yes; fi)`: This line checks if any Logical Volume Manager (LVM) partitions are present on the system using the `lsblk` command. If there are no LVM partitions, it outputs "no"; otherwise, it outputs "yes". The result is stored in the variable `lvmu`.
+13. `ctcp=$(ss -neopt state established | wc -l)`: This line uses the `ss` command to count the number of established TCP connections and stores the count in the variable `ctcp`.
+14. `ulog=$(users | wc -w)`: This line counts the number of currently logged-in users using the `users` command and stores the count in the variable `ulog`.
+15. `ip=$(hostname -I)`: This line retrieves the IP addresses associated with the hostname using the `hostname` command with the `-I` option and stores the result in the variable `ip`.
+16. `mac=$(ip link show | grep "ether" | awk '{print $2}')`: This line uses the `ip` command to retrieve network interface information and extracts the MAC address using `grep` and `awk`. The MAC address is stored in the variable `mac`.
+17. `cmds=$(journalctl _COMM=sudo | grep COMMAND | wc -l)`: This line counts the number of times the `sudo` command has been used by searching for relevant log entries in the journal using `journalctl`. The count is stored in the variable `cmds`.
+18. Finally, the `wall` command is used to broadcast a formatted message containing all the gathered information. The information is presented with corresponding labels and values.
+
 ## Bonus Step by Step
 ### Install PHP
 - `sudo apt update`
